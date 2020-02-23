@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+/* MOBILE SCREEN 600PX OR LESS */
+
+.home-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
+}
+.bg-banner {
+  background: #000;
+  color: #fff;
+  max-width: 80%;
+  text-align: center;
+   margin: 0 auto;
+
+}
+
+.description {
+  background: lightgray;
+  max-width: 50%;
+  margin: 1em auto;
+}
+
+#search-form {
+
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: lightgray;
+}
+#city,
+#state,
+#number {
+  display: flex;
+  justify-content: center;
+  font-size: 2.5em;
+}
+
+.hidden {
+    display: none;
+  }
+
+button, input[type="text"],
+input[type="number"] {
+  padding: 2rem;
+  width: 75%;
+  margin: .50em auto;
+  font-size: 2em;
+  border-radius: 2%;
+}
+
+button:hover {
+  cursor: pointer;
+  background: #000;
+  color: #fff;
+}
+
+button {
+  width: 50%;
+}
+
+body, 
+.results-container {
+  max-width: 100%;
+  margin: 2em auto;
+
+}
+
+#results, 
+.footer {
+  display: flex;
+  flex-direction: column;
+  margin: 1em auto;
+  justify-content: center;
+}
+.results-txt {
+  text-align: center;
+
+}
+
+
+ul li {
+  list-style: none;
+    margin: 1em auto;
+   
+}
+
+.mp-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: .50rem;
+  border: 2px solid darkgray;
+  background: lightgray;
+  width: 70%;
+  height: 90%;
+  margin: 1em auto;
+  text-align: center;
+   /* margin: auto auto 25px; */
+  
+}
+.link a {
+    white-space: pre-wrap; /* CSS3 */    
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */    
+    white-space: -o-pre-wrap; /* Opera 7 */    
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+.error-message {
+    color: red;
+}
+
+
