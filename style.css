@@ -1,35 +1,30 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-/* MOBILE SCREEN 600PX OR LESS */
-
 .home-container {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-
 }
 .bg-banner {
   background: #000;
   color: #fff;
-  max-width: 80%;
+  /* max-width: 80%; */
   text-align: center;
-   margin: 0 auto;
-
+  margin: 2em 0 auto;
 }
 
 .description {
   background: lightgray;
-  max-width: 50%;
-  margin: 1em auto;
+  max-width: 80%;
+  margin: 2em auto;
+  font-size: 1.5rem;
 }
 
 #search-form {
-
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -41,19 +36,52 @@
 #number {
   display: flex;
   justify-content: center;
-  font-size: 2.5em;
+  font-size: 1.5rem;
+}
+
+#search {
+  width: 50%;
+}
+.results-container {
+  padding-top: 1.5em;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  margin: auto;
+  /* height: 300px;
+  width: 300px; */
+}
+.results,
+#resources {
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+}
+.mp-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 2px solid darkgray;
+  background: lightgray;
+  width: 70%;
+  margin: 1em auto;
+  text-align: center;
 }
 
 .hidden {
-    display: none;
-  }
+  display: none;
+}
 
-button, input[type="text"],
+button,
+input[type="text"],
 input[type="number"] {
   padding: 2rem;
-  width: 75%;
-  margin: .50em auto;
-  font-size: 2em;
+  margin: 0.5em auto;
+  font-size: 1em;
   border-radius: 2%;
 }
 
@@ -63,18 +91,12 @@ button:hover {
   color: #fff;
 }
 
-button {
-  width: 50%;
+#new-search-btn {
+  width: 80%;
+  font-size: 1.5em;
 }
 
-body, 
-.results-container {
-  max-width: 100%;
-  margin: 2em auto;
-
-}
-
-#results, 
+#results,
 .footer {
   display: flex;
   flex-direction: column;
@@ -83,39 +105,94 @@ body,
 }
 .results-txt {
   text-align: center;
-
 }
-
 
 ul li {
   list-style: none;
-    margin: 1em auto;
-   
-}
-
-.mp-info{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: .50rem;
-  border: 2px solid darkgray;
-  background: lightgray;
-  width: 70%;
-  height: 90%;
   margin: 1em auto;
-  text-align: center;
-   /* margin: auto auto 25px; */
-  
 }
 .link a {
-    white-space: pre-wrap; /* CSS3 */    
-    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-    white-space: -pre-wrap; /* Opera 4-6 */    
-    white-space: -o-pre-wrap; /* Opera 7 */    
-    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 .error-message {
-    color: red;
+  color: red;
 }
 
+@media screen and (min-width: 700px) {
+  .results-container {
+    margin: 2.5em auto;
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid green;
+  }
 
+  .results,
+  #resources-list {
+    height: 80%;
+    overflow-y: auto;
+    margin: 1em auto;
+    padding: 0.5rem;
+  }
+  .results {
+    width: 40%;
+  }
+  .mp-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid darkgray;
+    background: lightgray;
+    width: 90%;
+    height: 50%;
+    margin: 1em auto;
+    text-align: center;
+  }
+
+  section ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  ul li {
+    margin: 0.7rem auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mp-info {
+    width: 100%;
+    align-items: center;
+    flex: 0 0 50%;
+  }
+
+  img {
+    width: 70%;
+  }
+
+  a {
+    word-wrap: break-word;
+    overflow: auto;
+  }
+  /* DELETE */
+  #resources,
+  #results-list {
+    border: 2px solid red;
+  }
+  /* DELETE */
+
+  #resources-list {
+    width: 50%;
+    margin-top: 2px;
+  }
+
+  #resources {
+    width: 100%;
+  }
+}
