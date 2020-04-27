@@ -60,7 +60,9 @@ function getMissingPerson(cityQuery, stateQuery) {
     })
     .then(resJson => {
       if (!resJson.records.length) {
-        $("#err").show();
+        $("#js-error-message").text(
+          `There are no missing persons in this area!`
+        );
       } else {
         displayResults(resJson);
       }
@@ -83,6 +85,7 @@ function displayResults(resJson) {
   // if there are previous results, remove them
   $("#results-list").empty();
   $("#starting-screen").hide();
+  $("#js-error-message").empty();
   // iterate through the items array
 
   let records = shuffleArray(resJson.records);
@@ -108,7 +111,6 @@ function displayResults(resJson) {
       "https://public.opendatasoft.com/explore/dataset/namus-missings/files/" +
       image.id +
       "/300/";
-    const contact = link + "/contacts";
 
     $("#results-list").append(`
     <section class="mp-container">
@@ -127,7 +129,7 @@ function displayResults(resJson) {
     
       <li> 
         <h4 class="link"> 
-        Find out more information: <a href=${link}>${link}</a>
+        Find out more information: <a target="_new" href=${link}>${link}</a>
         </h4> 
       </li>
     </ul>
@@ -136,19 +138,18 @@ function displayResults(resJson) {
       `);
 
     $("#resources").show();
-    //     $("#contact-list").append(`<h4>Investigating Agencies: ${contact}
-    // </h4>`);
   }
 
-  $;
   // 7. display new search button
   // 8. Show CTA message to user
   $("#new-search-msg").html(
-    `<p class="message-footer">Want to search in a new location?</p>
+    `<h2 class="message-footer">Want to search in a new location?</h2>
       <button id="new-search-btn">Try again</button>`
   );
   //display the results section
-  $(".results-txt").removeClass("hidden");
+  $(".results-txt")
+    .removeClass("hidden")
+    .show();
   $(".results-container")
     .removeClass("hidden")
     .show();

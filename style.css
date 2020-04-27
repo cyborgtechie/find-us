@@ -12,11 +12,11 @@
 .bg-banner {
   background: #000;
   color: #fff;
-  /* max-width: 80%; */
   text-align: center;
-  margin: 2em 0 auto;
 }
-
+.results-txt {
+  margin: 1em 0 auto;
+}
 .description {
   background: lightgray;
   max-width: 80%;
@@ -51,8 +51,6 @@
 
 .map-container {
   margin: auto;
-  /* height: 300px;
-  width: 300px; */
 }
 .results,
 #resources {
@@ -90,20 +88,22 @@ button:hover {
   background: #000;
   color: #fff;
 }
-
+button#search {
+  width: 30%;
+}
 #new-search-btn {
-  width: 80%;
   font-size: 1.5em;
 }
 
 #results,
-.footer {
+footer {
   display: flex;
   flex-direction: column;
   margin: 1em auto;
   justify-content: center;
 }
-.results-txt {
+.results-txt,
+.message-footer {
   text-align: center;
 }
 
@@ -111,12 +111,13 @@ ul li {
   list-style: none;
   margin: 1em auto;
 }
-.link a {
+h4.link a {
   white-space: pre-wrap; /* CSS3 */
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
   white-space: -pre-wrap; /* Opera 4-6 */
   white-space: -o-pre-wrap; /* Opera 7 */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
+  overflow: scroll;
 }
 .error-message {
   color: red;
@@ -129,13 +130,12 @@ ul li {
     height: 700px;
     display: flex;
     flex-direction: row;
-    border: 2px solid green;
   }
-
+  #results-list {
+    height: auto;
+  }
   .results,
   #resources-list {
-    height: 80%;
-    overflow-y: auto;
     margin: 1em auto;
     padding: 0.5rem;
   }
@@ -148,16 +148,15 @@ ul li {
     justify-content: center;
     border: 2px solid darkgray;
     background: lightgray;
-    width: 90%;
+    width: auto;
     height: 50%;
     margin: 1em auto;
     text-align: center;
   }
 
-  section ul {
+  section ul,
+  footer {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 
   ul li {
@@ -170,22 +169,13 @@ ul li {
     width: 100%;
     align-items: center;
     flex: 0 0 50%;
+    font-size: 0.9em;
+    flex-direction: column;
   }
 
   img {
     width: 70%;
   }
-
-  a {
-    word-wrap: break-word;
-    overflow: auto;
-  }
-  /* DELETE */
-  #resources,
-  #results-list {
-    border: 2px solid red;
-  }
-  /* DELETE */
 
   #resources-list {
     width: 50%;
@@ -194,5 +184,11 @@ ul li {
 
   #resources {
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .mp-info {
+    font-size: 1em;
   }
 }
