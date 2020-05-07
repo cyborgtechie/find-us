@@ -52,10 +52,7 @@
 .map-container {
   margin: auto;
 }
-.results,
-#resources {
-  height: 300px;
-  overflow-y: auto;
+.results {
   margin-bottom: 1em;
 }
 .mp-container {

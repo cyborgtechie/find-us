@@ -1,7 +1,9 @@
 "use strict";
 
 let searchURL = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=namus-missings&facet=statedisplaynameoflastcontact`;
-
+const state = {
+  records: []
+};
 const landingPage = {
   homeSection: `
   <section id="starting-screen">
@@ -83,13 +85,45 @@ function shuffleArray(resJson) {
 // 5. displayResults by emptying landing page and filling it with results
 function displayResults(resJson) {
   // if there are previous results, remove them
-  $("#results-list").empty();
   $("#starting-screen").hide();
   $("#js-error-message").empty();
   // iterate through the items array
 
   let records = shuffleArray(resJson.records);
+  state.records = records;
+  state.page = 0;
+  if (records.length > 10) {
+    records = records.slice(0, 10);
+  }
 
+  renderItems(records);
+
+  // 7. display new search button
+  // 8. Show CTA message to user
+  $("#new-search-msg").html(
+    `<h2 class="message-footer">Want to search in a new location?</h2>
+      <button id="new-search-btn">Try again</button>`
+  );
+  //display the results section
+  $(".results-txt")
+    .removeClass("hidden")
+    .show();
+  $(".results-container")
+    .removeClass("hidden")
+    .show();
+  $(".results").show();
+  $("#new-search-msg").show();
+}
+//function to display next page of missing persons
+function displayNext() {
+  $("body").on("click", ".nextButton", e => {
+    state.page++;
+    let results = state.records.slice(state.page * 5, state.page * 5 + 5);
+    renderItems(results);
+  });
+}
+function renderItems(records) {
+  $("#results-list").empty();
   for (let i = 0; i < records.length; i++) {
     const {
       firstname,
@@ -139,22 +173,11 @@ function displayResults(resJson) {
 
     $("#resources").show();
   }
-
-  // 7. display new search button
-  // 8. Show CTA message to user
-  $("#new-search-msg").html(
-    `<h2 class="message-footer">Want to search in a new location?</h2>
-      <button id="new-search-btn">Try again</button>`
-  );
-  //display the results section
-  $(".results-txt")
-    .removeClass("hidden")
-    .show();
-  $(".results-container")
-    .removeClass("hidden")
-    .show();
-  $(".results").show();
-  $("#new-search-msg").show();
+  let nextButton = "";
+  if (state.records.length > 10) {
+    nextButton = `<button class="nextButton">Next</button>`;
+  }
+  $("#results-list").append(`${nextButton}`);
 }
 // 9. On click Clear form
 // 10. Get form info on submit
@@ -182,6 +205,7 @@ function watchForm() {
 function findUs() {
   getnewSearch();
   watchForm();
+  displayNext();
 }
 //start app by calling findUs function
 $(findUs);
