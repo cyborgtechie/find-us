@@ -90,6 +90,31 @@ function displayResults(resJson) {
   // iterate through the items array
 
   let records = shuffleArray(resJson.records);
+  let ages = {};
+  let races = {};
+  let genders = {};
+  records.forEach(record => {
+    if (genders[record.fields.gender]) {
+      genders[record.fields.gender]++;
+    } else {
+      genders[record.fields.gender] = 1;
+    }
+    if (races[record.fields.raceethnicity]) {
+      races[record.fields.raceethnicity]++;
+    } else {
+      races[record.fields.raceethnicity] = 1;
+    }
+    const age = Math.floor(record.fields.computedmissingmaxage / 10) * 10;
+    if (ages[age]) {
+      ages[age]++;
+    } else {
+      ages[age] = 1;
+    }
+  });
+  createAgeChart(ages);
+  createRaceChart(races);
+  createPieChart(genders);
+
   state.records = records;
   state.page = 0;
   if (records.length > 10) {
@@ -118,7 +143,7 @@ function displayResults(resJson) {
 function displayNext() {
   $("body").on("click", ".nextButton", e => {
     state.page++;
-    let results = state.records.slice(state.page * 5, state.page * 5 + 5);
+    let results = state.records.slice(state.page * 10, state.page * 10 + 10);
     renderItems(results);
   });
 }
@@ -153,7 +178,7 @@ function renderItems(records) {
       <h3 class="fullName">${fullName}</h3>
       </li>
       
-      <li><br /> <img src=${img} />
+      <li><br/> <img src=${img} />
       </li>
       <li>  <h4 class="race"> Race/Ethnicity: ${raceethnicity} </h4>
       </li>
@@ -200,6 +225,119 @@ function watchForm() {
     let stateName = $("#search-state").val();
     getMissingPerson(cityName, stateName);
   });
+}
+
+//Charts
+let city = cityQuery;
+
+function createAgeChart(ages) {
+  var ctx = document.getElementById("ages").getContext("2d");
+  var agesChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: Object.keys(ages),
+      datasets: [
+        {
+          label: `Number of Missing Persons by Age in ${city}`,
+          data: Object.values(ages),
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)"
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    }
+  });
+}
+
+function createRaceChart(races) {
+  var ctx = document.getElementById("races").getContext("2d");
+  var agesChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: Object.keys(races),
+      datasets: [
+        {
+          label: `Number of Missing Persons by Race`,
+          data: Object.values(races),
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)"
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    }
+  });
+}
+
+function createPieChart(genders) {
+  var ctx = document.getElementById("genders").getContext("2d");
+
+  var config = {
+    type: "pie",
+    data: {
+      datasets: [
+        {
+          data: Object.values(genders),
+          backgroundColor: ["red", "yellow"],
+          label: `Number of Missing Persons by Gender in ${city}`
+        }
+      ],
+      labels: Object.keys(genders)
+    },
+    options: {
+      responsive: true
+    }
+  };
+  var myPieChart = new Chart(ctx, config);
 }
 
 function findUs() {
