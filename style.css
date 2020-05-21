@@ -1,8 +1,104 @@
+/* 
+dark purple-black
+#040305
+
+plum
+#4F3952
+
+bright prewinkle blue
+#7062E9
+
+navy
+#191E5D
+   
+cobalt blue   
+#283CAF
+   
+mauvey purple   
+#7F7092
+   
+bright pastel purple   
+#9462E8
+   
+bright pink
+#FF6384
+*/
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
+
+/* COLORS AND BACKGROUNDS */
+html {
+  background: #040305;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul li,
+label {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+}
+.mp-container {
+  background: #20242d;
+  border: 2px solid #c7c8ff;
+}
+a {
+  color: #dd92f6;
+}
+.title {
+  font-family: "Bebas Neue", cursive;
+  line-height: 1.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 1em;
+  display: inline;
+  background: linear-gradient(
+    0deg,
+    #9462e8 0,
+    #9462e8 40%,
+    hsla(0, 0%, 100%, 0) 0,
+    hsla(0, 0%, 100%, 0)
+  );
+}
+h1 {
+  font-size: 3 rem;
+}
+
+.fullName {
+  line-height: 1.7;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 1em;
+  display: inline;
+  background: linear-gradient(
+    0deg,
+    #fcad3f 20%,
+    #ff8e8e 40%,
+    hsla(0, 0%, 100%, 0) 0,
+    hsla(0, 0%, 100%, 0)
+  );
+}
+h3 {
+  display: inline;
+  background: linear-gradient(
+    0deg,
+    #dd92f6 0,
+    #9462e8 20%,
+    hsla(0, 0%, 100%, 0) 0,
+    hsla(0, 0%, 100%, 0)
+  );
+}
+
+/* END COLORS AND BACKGROUNDS */
+
 .home-container {
   height: 100%;
   display: flex;
@@ -15,10 +111,9 @@
   text-align: center;
 }
 .results-txt {
-  margin: 1em 0 auto;
+  margin: 0.5em auto;
 }
 .description {
-  background: lightgray;
   max-width: 80%;
   margin: 2em auto;
   font-size: 1.5rem;
@@ -29,7 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background: lightgray;
+  background: #7062e9;
 }
 #city,
 #state,
@@ -49,7 +144,7 @@
   flex-direction: column;
 }
 
-.map-container {
+.resources-container {
   margin: auto;
 }
 .results {
@@ -60,8 +155,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 0.5rem;
-  border: 2px solid darkgray;
-  background: lightgray;
   width: 70%;
   margin: 1em auto;
   text-align: center;
@@ -74,15 +167,17 @@
 button,
 input[type="text"],
 input[type="number"] {
+  font-family: "Lato", sans-serif;
   padding: 2rem;
   margin: 0.5em auto;
-  font-size: 1em;
+  font-size: 1.5em;
   border-radius: 2%;
+  color: #283caf;
 }
 
 button:hover {
   cursor: pointer;
-  background: #000;
+  background: #283caf;
   color: #fff;
 }
 button#search {
@@ -99,7 +194,7 @@ footer {
   margin: 1em auto;
   justify-content: center;
 }
-.results-txt,
+
 .message-footer {
   text-align: center;
 }
@@ -123,7 +218,29 @@ h4.link a {
   display: block;
   list-style: circle;
 }
+div#resources {
+  line-height: 1.5;
+}
+.mp-info img {
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px #8ce9ff;
+  -webkit-box-shadow: 5px 5px 10% #8ce9ff;
+  -moz-box-shadow: 3px 3px 1px #8ce9ff;
+}
+.nextButton {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 5%;
+}
 
+.charts {
+  line-height: 2.7px;
+}
+
+label.charts {
+  font-size: 2em;
+}
 @media screen and (min-width: 700px) {
   .results-container {
     margin: 2.5em auto;
@@ -143,12 +260,15 @@ h4.link a {
   .results {
     width: 40%;
   }
+  .results-txt {
+    top: 90px;
+    position: relative;
+    right: 35.2%;
+  }
   .mp-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 2px solid darkgray;
-    background: lightgray;
     width: auto;
     height: 50%;
     margin: 1em auto;
@@ -168,10 +288,12 @@ h4.link a {
 
   .mp-info {
     width: 100%;
+    height: auto;
     align-items: center;
     flex: 0 0 50%;
     font-size: 0.9em;
     flex-direction: column;
+    margin: auto;
   }
 
   img {
@@ -186,10 +308,41 @@ h4.link a {
   #resources {
     width: 100%;
   }
+  h1 {
+    font-size: 3em;
+  }
+
+  .results-txt,
+  .message-footer {
+    font-size: 1.5em;
+  }
+
+  .resources-container p {
+    font-size: 0.9em;
+  }
 }
 
 @media screen and (min-width: 800px) {
   .mp-info {
+    font-size: 1em;
+  }
+  .fullName {
+    font-size: 1.2em;
+  }
+
+  h1 {
+    font-size: 5em;
+  }
+  .results-txt {
+    top: 90px;
+    position: relative;
+    right: 40.2%;
+  }
+  .results-txt,
+  .message-footer {
+    font-size: 2em;
+  }
+  .resources-container p {
     font-size: 1em;
   }
 }

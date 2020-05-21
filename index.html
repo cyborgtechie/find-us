@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Find Us: An app helping locate missing persons</title>
+    <!-- google font styles -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <!-- <link rel="shortcut icon" href="#" /> -->
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -14,29 +19,31 @@
         <header>
           <div class="header-container">
             <div class="bg-banner">
-              <h1>Find Us</h1>
+              <h1 class="title">Find Us</h1>
             </div>
           </div>
         </header>
 
         <div class="js-form"></div>
 
-        <p id="js-error-message" class="error-message"></p>
+        <div id="js-error-screen" class="error-message"></div>
 
-        <h2 class="results-txt hidden">Have you seen me?</h2>
+        <h2 class="results-txt hidden title">Have you seen me?</h2>
       </div>
+
       <div class="results-container hidden" role="main">
         <ul id="results-list" class="results hidden"></ul>
-
         <section id="resources-list">
           <!-- STATISTICS CHARTS  -->
-          <canvas id="ages" width="400" height="200"></canvas>
-          <canvas id="races" width="400" height="200"></canvas>
-          <canvas id="genders" width="400" height="200"></canvas>
+          <div class="charts">
+            <canvas id="ages" width="400" height="200"></canvas>
+            <canvas id="races" width="400" height="200"></canvas>
+            <canvas id="genders" width="400" height="200"></canvas>
+          </div>
 
           <!-- RESOURCES -->
           <h2 class="title">What to do if your loved one is missing:</h2>
-          <div id="resources" class="map-container">
+          <div id="resources" class="resources-container">
             <h3>Contact the Police Immediately</h3>
 
             <p>
@@ -248,17 +255,19 @@
               <span>1-800-786-2929</span>
             </p>
             <!-- FOOTER -->
-            <footer id="new-search-msg"></footer>
+            <footer id="new-search-section"></footer>
           </div>
         </section>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"
     ></script>
+    <!-- <script src="background.js"></script> -->
     <script src="index.js"></script>
   </body>
 </html>

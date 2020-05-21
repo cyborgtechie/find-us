@@ -4,6 +4,7 @@ let searchURL = `https://public.opendatasoft.com/api/records/1.0/search/?dataset
 const state = {
   records: []
 };
+
 const landingPage = {
   homeSection: `
   <section id="starting-screen">
@@ -17,6 +18,7 @@ const landingPage = {
       <input id="search-state" class="userInput" type="text" name="search-state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
       <button id="search">Search</button>
       </form>
+      </div>
   </section> `
 };
 
@@ -34,7 +36,6 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 // 2. fetch info from namus api
-let cityQuery = "";
 
 function getMissingPerson(cityQuery, stateQuery) {
   cityQuery = cityQuery
@@ -62,15 +63,20 @@ function getMissingPerson(cityQuery, stateQuery) {
     })
     .then(resJson => {
       if (!resJson.records.length) {
-        $("#js-error-message").text(
-          `There are no missing persons in this area!`
-        );
+        $(".js-form").hide();
+        $("#js-error-screen")
+          .append(
+            `<p class="error-message">There are no missing persons in this area!</p>`
+          )
+          .show();
       } else {
         displayResults(resJson);
       }
     })
     .catch(err => {
-      $("#js-error-message").text(`Something went wrong: ${err.message}`);
+      $("#js-error-screen").append(
+        `<p class="error-message">Something went wrong: ${err.message}</p>`
+      );
     });
 }
 //get random array of MP's
@@ -86,7 +92,7 @@ function shuffleArray(resJson) {
 function displayResults(resJson) {
   // if there are previous results, remove them
   $("#starting-screen").hide();
-  $("#js-error-message").empty();
+  $("#js-error-screen").empty();
   // iterate through the items array
 
   let records = shuffleArray(resJson.records);
@@ -125,9 +131,9 @@ function displayResults(resJson) {
 
   // 7. display new search button
   // 8. Show CTA message to user
-  $("#new-search-msg").html(
-    `<h2 class="message-footer">Want to search in a new location?</h2>
-      <button id="new-search-btn">Try again</button>`
+  $("#new-search-section").append(
+    `<h2 class="message-footer title">Want to search in a new location?</h2>
+      <button id="new-search-btn">Let's Go!</button>`
   );
   //display the results section
   $(".results-txt")
@@ -137,16 +143,17 @@ function displayResults(resJson) {
     .removeClass("hidden")
     .show();
   $(".results").show();
-  $("#new-search-msg").show();
+  $("#new-search-section").show();
 }
 //function to display next page of missing persons
 function displayNext() {
-  $("body").on("click", ".nextButton", e => {
+  $("body").on("click", ".nextButton", _e => {
     state.page++;
     let results = state.records.slice(state.page * 10, state.page * 10 + 10);
     renderItems(results);
   });
 }
+
 function renderItems(records) {
   $("#results-list").empty();
   for (let i = 0; i < records.length; i++) {
@@ -173,62 +180,38 @@ function renderItems(records) {
 
     $("#results-list").append(`
     <section class="mp-container">
-    <ul class="mp-info">
-      <li>
-      <h3 class="fullName">${fullName}</h3>
-      </li>
-      
-      <li><br/> <img src=${img} />
-      </li>
-      <li>  <h4 class="race"> Race/Ethnicity: ${raceethnicity} </h4>
-      </li>
-      <li>
-      <h4 class="lastSeen"> Last seen: ${lastLocation} on ${dateoflastcontact}</h4>
-      </li>
-    
-      <li> 
-        <h4 class="link"> 
-        Find out more information: <a target="_new" href=${link}>${link}</a>
-        </h4> 
-      </li>
-    </ul>
-  
-    </section>
+      <ul class="mp-info">
+       <li>
+          <h3 class="fullName">${fullName}</h3>
+       </li>
+       <li><br/> <img src=${img} /></li>
+       <li>
+          <h4 class="js-title"> Race/Ethnicity: ${raceethnicity} </h4>
+       </li>
+       <li>
+          <h4 class="js-title"> 
+             Last seen: ${lastLocation} on ${dateoflastcontact}
+          </h4>
+       </li>
+       <li>
+          <h4 class="js-title"> 
+             Find out more information: <a target="_new" href=${link}>${link}</a>
+          </h4>
+       </li>
+      </ul>
+   </section>
       `);
 
     $("#resources").show();
   }
   let nextButton = "";
   if (state.records.length > 10) {
-    nextButton = `<button class="nextButton">Next</button>`;
+    nextButton = `<button class="nextButton">Next Page</button>`;
   }
   $("#results-list").append(`${nextButton}`);
 }
-// 9. On click Clear form
-// 10. Get form info on submit
-function getnewSearch() {
-  $("body").on("click", "#new-search-btn", function(e) {
-    e.preventDefault();
-    $(".results-container").hide();
-    $(".results-txt").hide();
-    $("#new-search-msg").hide();
-    $("#starting-screen").show();
-    $(".userInput").val("");
-  });
-}
-
-// 1. Get form info on submit and store in a variable...
-function watchForm() {
-  $("#search-form").submit(e => {
-    e.preventDefault();
-    let cityName = $("#search-city").val();
-    let stateName = $("#search-state").val();
-    getMissingPerson(cityName, stateName);
-  });
-}
 
 //Charts
-let city = cityQuery;
 
 function createAgeChart(ages) {
   var ctx = document.getElementById("ages").getContext("2d");
@@ -238,7 +221,7 @@ function createAgeChart(ages) {
       labels: Object.keys(ages),
       datasets: [
         {
-          label: `Number of Missing Persons by Age in ${city}`,
+          label: `Number of Missing Persons by Age Group`,
           data: Object.values(ages),
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -261,11 +244,14 @@ function createAgeChart(ages) {
       ]
     },
     options: {
+      legend: {
+        labels: { fontColor: "white", fontSize: 18 }
+      },
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
+              beginAtZero: false
             }
           }
         ]
@@ -305,6 +291,9 @@ function createRaceChart(races) {
       ]
     },
     options: {
+      legend: {
+        labels: { fontColor: "white", fontSize: 18 }
+      },
       scales: {
         yAxes: [
           {
@@ -327,8 +316,8 @@ function createPieChart(genders) {
       datasets: [
         {
           data: Object.values(genders),
-          backgroundColor: ["red", "yellow"],
-          label: `Number of Missing Persons by Gender in ${city}`
+          backgroundColor: ["#7efdd0", "#8ce8ff"],
+          label: `Number of Missing Persons by Gender`
         }
       ],
       labels: Object.keys(genders)
@@ -338,6 +327,30 @@ function createPieChart(genders) {
     }
   };
   var myPieChart = new Chart(ctx, config);
+}
+
+//function to allow user to do a new search
+function getnewSearch() {
+  $("body").on("click", "#new-search-btn", function(e) {
+    e.preventDefault();
+    $(".results-container").hide();
+    $(".results-txt").hide();
+    $("#new-search-section")
+      .hide()
+      .empty();
+    $("#starting-screen").show();
+    $(".userInput").val("");
+  });
+}
+
+// 1. Get form info on submit and store in a variable...
+function watchForm() {
+  $("#search-form").submit(e => {
+    e.preventDefault();
+    let cityName = $("#search-city").val();
+    let stateName = $("#search-state").val();
+    getMissingPerson(cityName, stateName);
+  });
 }
 
 function findUs() {
