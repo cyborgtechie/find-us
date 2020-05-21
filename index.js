@@ -152,6 +152,14 @@ function displayNext() {
     let results = state.records.slice(state.page * 10, state.page * 10 + 10);
     renderItems(results);
   });
+  $("body").on("click", ".previousButton", _e => {
+    if (state.page === 0) {
+      return;
+    }
+    state.page--;
+    let results = state.records.slice(state.page * 10, state.page * 10 + 10);
+    renderItems(results);
+  });
 }
 
 function renderItems(records) {
@@ -195,7 +203,7 @@ function renderItems(records) {
        </li>
        <li>
           <h4 class="js-title"> 
-             Find out more information: <a target="_new" href=${link}>${link}</a>
+              <a target="_new" href=${link}>Find out more information</a>
           </h4>
        </li>
       </ul>
@@ -205,8 +213,13 @@ function renderItems(records) {
     $("#resources").show();
   }
   let nextButton = "";
-  if (state.records.length > 10) {
-    nextButton = `<button class="nextButton">Next Page</button>`;
+  if (state.page > 0) {
+    nextButton += `<button class="previousButton">Previous</button>
+    `;
+  }
+  if (state.records.length > state.page * 10) {
+    nextButton += `<button class="nextButton">Next Page</button>
+    `;
   }
   $("#results-list").append(`${nextButton}`);
 }
