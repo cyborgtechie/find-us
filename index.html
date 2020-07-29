@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="display">
+    <div class="display" role="container">
       <div class="home-container">
         <header>
           <div class="header-container">
@@ -28,22 +28,23 @@
 
         <div id="js-error-screen" class="error-message"></div>
 
-        <h2 class="results-txt hidden title">Have you seen me?</h2>
       </div>
-
+      <h2 class="results-txt hidden title">Have you seen me?</h2>
+      
       <div class="results-container hidden" role="main">
         <ul id="results-list" class="results hidden"></ul>
         <section id="resources-list">
           <!-- STATISTICS CHARTS  -->
-          <div class="charts">
+          <div class="charts" role="table" aria-label="data charts">
             <canvas id="ages" width="400" height="200"></canvas>
             <canvas id="races" width="400" height="200"></canvas>
             <canvas id="genders" width="400" height="200"></canvas>
           </div>
 
           <!-- RESOURCES -->
-          <h2 class="title">What to do if your loved one is missing:</h2>
-          <div id="resources" class="resources-container">
+          <section id="resources" class="resources-container" role="article">
+            <h2 class="title">What to do if your loved one is missing:</h2>
+            <br />
             <h3>Contact the Police Immediately</h3>
 
             <p>
@@ -200,24 +201,11 @@
               more resources to solving the case. Keep in mind though that the
               media is not guaranteed and not likely to cover your story.
             </p>
+          </section>
 
-            <!-- <h3>What Should I do if My Child is Missing or has Run Away?</h3>
-              
-              <p>You should immediately call your local police. Provide them with a detailed physical description including what clothing he or she was wearing and where and when he was last seen. Federal law prohibits police from imposing a waiting period before accepting a missing child.</p>
-              
-              <p>Within two hours of receiving a missing child report, police must add the information to the FBI&rsquo;s National Crime Information Center Missing Person File.</p>
-              
-              <p>Federal and state governments, law enforcement and organizations provide special resources and services to help search for missing children or teens.</p>
-              
-              <p>If your child is between the ages of 18 and 20, and legally considered an adult, and has a mental health condition, police are required by Suzanne&rsquo;s Law (a provision in the PROTECT Act of 2003) to extend the same level of effort and resources as they would for a child under the age of 18.</p>
-              
-              <p>You should then call the <a href="http://www.missingkids.com/MissingChild" target="_blank">National Center for Missing and Exploited Children</a> (CMEC), 1-800-843-5678. CMEC will provide technical and case management assistance to help ensure all available search and recover methods are used.</p>
-              
-              <p>All of the tips and suggestions provided for locating a missing person can apply to a person of any age so we recommend using those strategies as well.</p> -->
-          </div>
-
-          <div><h2 class="title">How You Can Help Find Us:</h2></div>
-          <div id="contact-list">
+          <section id="contact-list" role="article">
+            <h2 class="title">How You Can Help Find Us:</h2>
+            <br />
             <h3>Resources for Finding Missing Children</h3>
 
             <p>
@@ -256,7 +244,7 @@
             </p>
             <!-- FOOTER -->
             <footer id="new-search-section"></footer>
-          </div>
+          </section>
         </section>
       </div>
     </div>

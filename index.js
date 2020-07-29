@@ -187,12 +187,10 @@ function renderItems(records) {
       "/300/";
 
     $("#results-list").append(`
+    <h3 class="fullName">${fullName}</h3>
     <section class="mp-container">
       <ul class="mp-info">
-       <li>
-          <h3 class="fullName">${fullName}</h3>
-       </li>
-       <li><br/> <img src=${img} /></li>
+       <li><img src=${img} /></li>
        <li>
           <h4 class="js-title"> Race/Ethnicity: ${raceethnicity} </h4>
        </li>
@@ -214,11 +212,13 @@ function renderItems(records) {
   }
   let nextButton = "";
   if (state.page > 0) {
-    nextButton += `<button class="previousButton">Previous</button>
+    nextButton += `<div class="pagination">
+    <button class="previousButton">Previous</button>
     `;
   }
   if (state.records.length > state.page * 10) {
     nextButton += `<button class="nextButton">Next Page</button>
+    </div>
     `;
   }
   $("#results-list").append(`${nextButton}`);
@@ -242,7 +242,11 @@ function createAgeChart(ages) {
             "rgba(255, 206, 86, 0.2)",
             "rgba(75, 192, 192, 0.2)",
             "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)"
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(0, 255, 0, 0.2)",
+            "rgba(199, 200, 255, 0.2)",
+            "rgba(255, 142, 142, 0.2)",
+            "rgba(255, 0, 0, 0.2)"
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -250,7 +254,11 @@ function createAgeChart(ages) {
             "rgba(255, 206, 86, 1)",
             "rgba(75, 192, 192, 1)",
             "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)"
+            "rgba(255, 159, 64, 1)",
+            "rgba(	0, 255, 0, 1)",
+            "rgba(199, 200, 255, 1)",
+            "rgba(255, 142, 142, 1)",
+            "rgba(	255, 0, 0, 1)"
           ],
           borderWidth: 1
         }
@@ -289,7 +297,11 @@ function createRaceChart(races) {
             "rgba(255, 206, 86, 0.2)",
             "rgba(75, 192, 192, 0.2)",
             "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)"
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(0, 255, 0, 0.3)",
+            "rgba(199, 200, 255, 0.2)",
+            "rgba(255, 142, 142, 0.2)",
+            "rgba(255, 0, 0, 0.2)"
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -297,7 +309,11 @@ function createRaceChart(races) {
             "rgba(255, 206, 86, 1)",
             "rgba(75, 192, 192, 1)",
             "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)"
+            "rgba(255, 159, 64, 1)",
+            "rgba(	0, 255, 0, 1)",
+            "rgba(199, 200, 255, 1)",
+            "rgba(255, 142, 142, 1)",
+            "rgba(	255, 0, 0, 1)"
           ],
           borderWidth: 1
         }

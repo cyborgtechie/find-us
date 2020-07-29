@@ -47,7 +47,16 @@ label {
 }
 .mp-container {
   background: #20242d;
-  border: 2px solid #c7c8ff;
+  /* border: 2px solid #c7c8ff; */
+  background: url(images/mp-shape.svg) center no-repeat;
+  background-size: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 100%;
+  margin: 0 auto 2em;
+  text-align: center;
 }
 a {
   color: #dd92f6;
@@ -74,6 +83,7 @@ h1 {
 .fullName {
   line-height: 1.7;
   font-size: 1em;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0 0 1em;
@@ -148,15 +158,7 @@ h3 {
   margin: auto;
 }
 .results {
-  margin-bottom: 1em;
-}
-.mp-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0.5rem;
-  width: 70%;
-  margin: 1em auto;
+  margin:: 1em;
   text-align: center;
 }
 
@@ -209,7 +211,6 @@ h4.link a {
   white-space: -pre-wrap; /* Opera 4-6 */
   white-space: -o-pre-wrap; /* Opera 7 */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
-  overflow: scroll;
 }
 .error-message {
   color: red;
@@ -222,15 +223,21 @@ div#resources {
   line-height: 1.5;
 }
 .mp-info img {
+
   border-radius: 5px;
   box-shadow: 1px 1px 6px #8ce9ff;
   -webkit-box-shadow: 5px 5px 10% #8ce9ff;
   -moz-box-shadow: 3px 3px 1px #8ce9ff;
 }
-.nextButton {
+
+.pagination {
   display: flex;
   width: 100%;
-  justify-content: center;
+}
+
+.nextButton,
+.previousButton {
+  display: inline;
   border-radius: 5%;
 }
 
@@ -240,6 +247,20 @@ div#resources {
 
 label.charts {
   font-size: 2em;
+}
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 392px) {
+  .mp-container {
+    width: 90%;
+  }
+  /* img {
+    width: 30%;
+  } */
 }
 @media screen and (min-width: 700px) {
   .results-container {
@@ -269,9 +290,7 @@ label.charts {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: auto;
-    height: 50%;
-    margin: 1em auto;
+    width: 100%;
     text-align: center;
   }
 
@@ -336,7 +355,7 @@ label.charts {
   .results-txt {
     top: 90px;
     position: relative;
-    right: 40.2%;
+  
   }
   .results-txt,
   .message-footer {
