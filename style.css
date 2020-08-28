@@ -141,8 +141,7 @@ h3 {
   justify-content: space-evenly;
   background: #7062e9;
 }
-#city,
-#state,
+.userInput,
 #number {
   display: flex;
   justify-content: center;

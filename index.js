@@ -17,10 +17,11 @@ const landingPage = {
     
     </div>
     <form id="search-form" role="search">
-      <label for="city" id="city">Enter City</label>
-      <input id="search-city" class="userInput" type="text" aria-label="search city text" name="search-city" placeholder="Austin" focus spellcheck="true" required>
-      <label for="state" id="state">Enter State</label>
-      <input id="search-state" class="userInput" type="text" aria-label="search state text" name="search-state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
+      <label for="city" class="userInput">Enter City</label>
+      <input id="city" type="text" aria-label="search city text" name="city" placeholder="Austin" focus spellcheck="true" required>
+      <label for="state" class="userInput">Enter State</label>
+      <input id="state" type="text" aria-label="search state text" name="state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
+
       <button id="search">Search</button>
       </form>
       </div>
