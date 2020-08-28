@@ -2,7 +2,7 @@
 
 let searchURL = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=namus-missings&facet=statedisplaynameoflastcontact`;
 const state = {
-  records: []
+  records: [],
 };
 
 const landingPage = {
@@ -11,18 +11,23 @@ const landingPage = {
     <h2 class="description">An app that provides you information on missing persons in your area or state. This app includes their last known location, 
     description of the person, and resources you can utilize to help find them.
     </h2>
-    <form id="search-form">
+    <div class='landing-pg-large-screens'>
+   
+      <img src="images/all copy.png" class="landing-pg-img" alt="mobile find us app preview">
+    
+    </div>
+    <form id="search-form" role="search">
       <label for="city" id="city">Enter City</label>
-      <input id="search-city" class="userInput" type="text" name="search-city" placeholder="Austin" focus spellcheck="true" required>
+      <input id="search-city" class="userInput" type="text" aria-label="search city text" name="search-city" placeholder="Austin" focus spellcheck="true" required>
       <label for="state" id="state">Enter State</label>
-      <input id="search-state" class="userInput" type="text" name="search-state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
+      <input id="search-state" class="userInput" type="text" aria-label="search state text" name="search-state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
       <button id="search">Search</button>
       </form>
       </div>
-  </section> `
+  </section> `,
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
   $(".js-form").append(landingPage.homeSection);
   $(".results-container").hide();
   $("#resources").hide();
@@ -31,7 +36,7 @@ $(document).ready(function() {
 //combines searchURL with user input
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map(
-    key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+    (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
   );
   return queryItems.join("&");
 }
@@ -41,41 +46,48 @@ function getMissingPerson(cityQuery, stateQuery) {
   cityQuery = cityQuery
     .toLowerCase()
     .split(" ")
-    .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
     .join(" ");
 
   let params = {
     facet: "cityoflastcontact",
     "refine.cityoflastcontact": cityQuery,
     "refine.statedisplaynameoflastcontact": stateQuery.toUpperCase(),
-    rows: 1000
+    rows: 1000,
   };
 
   const queryString = formatQueryParams(params);
   const url = `${searchURL}&${queryString}`;
 
   Promise.all([fetch(url)])
-    .then(res => {
+    .then((res) => {
       if (res[0].ok) {
         return res[0].json();
       }
       throw new Error(res[0].statusText);
     })
-    .then(resJson => {
+    .then((resJson) => {
       if (!resJson.records.length) {
         $(".js-form").hide();
         $("#js-error-screen")
           .append(
-            `<p class="error-message">There are no missing persons in this area!</p>`
+            `<section class="err-container">
+              <h2 class="error-message">There are no missing persons in this area!</h2>
+              <button class="new-search-btn">Try new search</button>
+            </section>`
           )
           .show();
       } else {
         displayResults(resJson);
       }
     })
-    .catch(err => {
+    .catch((err) => {
+      $(".js-form").hide();
       $("#js-error-screen").append(
-        `<p class="error-message">Something went wrong: ${err.message}</p>`
+        `<section>
+          <h2 class="error-message">Something went wrong: ${err.message}</h2>
+          <button class="new-search-btn">Go back</button>
+          </section>`
       );
     });
 }
@@ -99,7 +111,7 @@ function displayResults(resJson) {
   let ages = {};
   let races = {};
   let genders = {};
-  records.forEach(record => {
+  records.forEach((record) => {
     if (genders[record.fields.gender]) {
       genders[record.fields.gender]++;
     } else {
@@ -132,27 +144,25 @@ function displayResults(resJson) {
   // 7. display new search button
   // 8. Show CTA message to user
   $("#new-search-section").append(
-    `<h2 class="message-footer title">Want to search in a new location?</h2>
-      <button id="new-search-btn">Let's Go!</button>`
+    `<section class="new-search-container">
+        <h2 class="message-footer title">Want to search in a new location?</h2>
+        <button class="new-search-btn">Let's Go!</button>
+      </section>`
   );
   //display the results section
-  $(".results-txt")
-    .removeClass("hidden")
-    .show();
-  $(".results-container")
-    .removeClass("hidden")
-    .show();
+  $(".results-txt").removeClass("hidden").show();
+  $(".results-container").removeClass("hidden").show();
   $(".results").show();
   $("#new-search-section").show();
 }
 //function to display next page of missing persons
 function displayNext() {
-  $("body").on("click", ".nextButton", _e => {
+  $("body").on("click", ".nextButton", (_e) => {
     state.page++;
     let results = state.records.slice(state.page * 10, state.page * 10 + 10);
     renderItems(results);
   });
-  $("body").on("click", ".previousButton", _e => {
+  $("body").on("click", ".previousButton", (_e) => {
     if (state.page === 0) {
       return;
     }
@@ -174,12 +184,10 @@ function renderItems(records) {
       dateoflastcontact,
       link,
       image,
-      raceethnicity
+      raceethnicity,
     } = records[i].fields;
 
-    const fullName = `${firstname} ${
-      middlename ? middlename : ""
-    }  ${lastname}`;
+    const fullName = `${firstname} ${middlename ? middlename : ""} ${lastname}`;
     const lastLocation = `${cityoflastcontact}, ${statedisplaynameoflastcontact}`;
     const img =
       "https://public.opendatasoft.com/explore/dataset/namus-missings/files/" +
@@ -190,7 +198,7 @@ function renderItems(records) {
     <h3 class="fullName">${fullName}</h3>
     <section class="mp-container">
       <ul class="mp-info">
-       <li><img src=${img} /></li>
+       <li><img src=${img} alt="missing person" class="mp-img" /></li>
        <li>
           <h4 class="js-title"> Race/Ethnicity: ${raceethnicity} </h4>
        </li>
@@ -246,7 +254,7 @@ function createAgeChart(ages) {
             "rgba(0, 255, 0, 0.2)",
             "rgba(199, 200, 255, 0.2)",
             "rgba(255, 142, 142, 0.2)",
-            "rgba(255, 0, 0, 0.2)"
+            "rgba(255, 0, 0, 0.2)",
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -258,26 +266,30 @@ function createAgeChart(ages) {
             "rgba(	0, 255, 0, 1)",
             "rgba(199, 200, 255, 1)",
             "rgba(255, 142, 142, 1)",
-            "rgba(	255, 0, 0, 1)"
+            "rgba(	255, 0, 0, 1)",
           ],
-          borderWidth: 1
-        }
-      ]
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       legend: {
-        labels: { fontColor: "white", fontSize: 18 }
+        labels: {
+          fontColor: "white",
+          fontSize: 14,
+          fontFamily: "'Lato', sans-serif",
+        },
       },
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: false
-            }
-          }
-        ]
-      }
-    }
+              beginAtZero: false,
+            },
+          },
+        ],
+      },
+    },
   });
 }
 
@@ -301,7 +313,7 @@ function createRaceChart(races) {
             "rgba(0, 255, 0, 0.3)",
             "rgba(199, 200, 255, 0.2)",
             "rgba(255, 142, 142, 0.2)",
-            "rgba(255, 0, 0, 0.2)"
+            "rgba(255, 0, 0, 0.2)",
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -313,26 +325,30 @@ function createRaceChart(races) {
             "rgba(	0, 255, 0, 1)",
             "rgba(199, 200, 255, 1)",
             "rgba(255, 142, 142, 1)",
-            "rgba(	255, 0, 0, 1)"
+            "rgba(	255, 0, 0, 1)",
           ],
-          borderWidth: 1
-        }
-      ]
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       legend: {
-        labels: { fontColor: "white", fontSize: 18 }
+        labels: {
+          fontColor: "white",
+          fontSize: 14,
+          fontFamily: "'Lato', sans-serif",
+        },
       },
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
-            }
-          }
-        ]
-      }
-    }
+              beginAtZero: false,
+            },
+          },
+        ],
+      },
+    },
   });
 }
 
@@ -340,41 +356,41 @@ function createPieChart(genders) {
   var ctx = document.getElementById("genders").getContext("2d");
 
   var config = {
-    type: "pie",
+    type: "doughnut",
     data: {
       datasets: [
         {
           data: Object.values(genders),
           backgroundColor: ["#7efdd0", "#8ce8ff"],
-          label: `Number of Missing Persons by Gender`
-        }
+          label: `Number of Missing Persons by Gender`,
+        },
       ],
-      labels: Object.keys(genders)
+      labels: Object.keys(genders),
     },
     options: {
-      responsive: true
-    }
+      responsive: true,
+    },
   };
   var myPieChart = new Chart(ctx, config);
 }
 
 //function to allow user to do a new search
 function getnewSearch() {
-  $("body").on("click", "#new-search-btn", function(e) {
+  $("body").on("click", ".new-search-btn", function (e) {
     e.preventDefault();
+    $("#js-error-screen").hide().empty();
     $(".results-container").hide();
     $(".results-txt").hide();
-    $("#new-search-section")
-      .hide()
-      .empty();
+    $("#new-search-section").hide().empty();
     $("#starting-screen").show();
+    $(".js-form").show();
     $(".userInput").val("");
   });
 }
 
 // 1. Get form info on submit and store in a variable...
 function watchForm() {
-  $("#search-form").submit(e => {
+  $("#search-form").submit((e) => {
     e.preventDefault();
     let cityName = $("#search-city").val();
     let stateName = $("#search-state").val();
