@@ -393,8 +393,8 @@ function getnewSearch() {
 function watchForm() {
   $("#search-form").submit((e) => {
     e.preventDefault();
-    let cityName = $("#search-city").val();
-    let stateName = $("#search-state").val();
+    let cityName = $("#city").val();
+    let stateName = $("#state").val();
     getMissingPerson(cityName, stateName);
   });
 }
