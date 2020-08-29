@@ -13,7 +13,7 @@ const landingPage = {
     </h2>
     <div class='landing-pg-large-screens'>
    
-      <img src="images/all copy.png" class="landing-pg-img" alt="mobile find us app preview">
+      <img src="images/all.png" class="landing-pg-img" alt="mobile find us app preview">
     
     </div>
     <form id="search-form" role="search">
