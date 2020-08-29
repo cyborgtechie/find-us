@@ -18,9 +18,9 @@ const landingPage = {
     </div>
     <form id="search-form" role="search">
       <label for="city" class="userInput">Enter City</label>
-      <input id="city" type="text" aria-label="search city text" name="city" placeholder="Austin" focus spellcheck="true" required>
+      <input id="city" type="text" aria-label="search city text" name="city" placeholder="Austin" spellcheck="true" required>
       <label for="state" class="userInput">Enter State</label>
-      <input id="state" type="text" aria-label="search state text" name="state" placeholder="TX" maxlength="2" focus spellcheck="true" required>
+      <input id="state" type="text" aria-label="search state text" name="state" placeholder="TX" maxlength="2" spellcheck="true" required>
 
       <button id="search">Search</button>
       </form>
